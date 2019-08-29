@@ -1,1 +1,17 @@
 <h1><%= @student.to_s %></h1>
+
+
+  <% if @student.active == false %>
+    <%= "This student is currently inactive."%>
+  <% else%>
+    <%= "This student is currently active."%>
+  <% end %>
+
+</br>
+<%= button_to 'Click HERE to togle active status', activate_student_path(@student), method: :get%>
+
+
+ </br>
+  <%= link_to 'Click HERE to go back to all students', students_path%>
+
+
