@@ -6,11 +6,43 @@ class StudentsController < ApplicationController
   end
 
   def show
+    @student = Student.find(params[:id])
+    @active = if @student.active
+      "This student is currently active."
+    else
+      "This student is currently inactive."
+    end
+  end
+
+  # def activate
+  #   @student = Student.find(params[:id])
+  # end
+
+  def activate
+    student = Student.find(params[:id])
+      if student.active
+        student.active = false
+        student.save
+      else
+        student.active = true
+        student.save
+      end
+    redirect_to student_path(student)
+  end
+
+  def update
+    student = Student.find(params[:id])
+    student.update(student_params)
+    redirect_to student_path(student)
   end
 
   private
 
     def set_student
       @student = Student.find(params[:id])
+    end
+
+    def student_params
+      params.require(:student).permit(:active)
     end
 end
